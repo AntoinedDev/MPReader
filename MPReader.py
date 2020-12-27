@@ -15,7 +15,11 @@ def authenticate():
     python_button.send_keys('Jerry1994')
     # python_button = browser.find_element_by_xpath("//*[@id='logFormEl'][1]")
     python_button.submit()
-    url = browser.current_url
+    URL = browser.current_url
+    r = requests.get(URL) 
+    # print(r.content) 
+    soup = bs(r.content, 'html5lib')
+    print(soup.prettify())
 
 
 
