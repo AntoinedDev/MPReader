@@ -6,7 +6,8 @@ import requests
 import re
 import time
 
-browser = webdriver.Chrome('/home/arch/myDev/chromedriver')
+#browser = webdriver.Chrome('/home/arch/myDev/chromedriver')
+browser = webdriver.Firefox()
 browser.get('https://www.mediapart.fr/login')
 
 def authenticate():
@@ -15,7 +16,7 @@ def authenticate():
     python_button = browser.find_element_by_xpath("//*[@id='edit-name-page']")
     python_button.send_keys('darboisantoine@gmail.com')
     python_button = browser.find_element_by_xpath("//*[@id='edit-pass-page']")
-    python_button.send_keys('Jerry1994')
+    python_button.send_keys('*********')
     python_button.submit()
     URL = browser.current_url
     r = requests.get(URL) 
@@ -24,15 +25,15 @@ def authenticate():
     a = soup.find_all('h3', attrs={'class': "title"})
     articles_list.append(a)
     list_all_articles = str(articles_list).split('href=')    
-    with open('/home/arch/Bureau/articles_link.txt', 'w+') as f:
+    with open('/home/arch/Desktop/articles_link.txt', 'w+') as f:
         for x in range(len(list_all_articles)):
             try:
                 f.write(list_all_articles[x])
             except IndexError:
                 pass
     articles_list.clear()
-    with open('/home/arch/Bureau/only_link.txt', 'w+') as h:
-        with open('/home/arch/Bureau/articles_link.txt', 'r+') as g:
+    with open('/home/arch/Desktop/only_link.txt', 'w+') as h:
+        with open('/home/arch/Desktop/articles_link.txt', 'r+') as g:
             line = g.readlines()
             for lines in line:
                 articles = re.findall("""\<a "/journal/.{0,800}>""",lines)
